@@ -1,0 +1,196 @@
+---
+title: 'Lecture 4: Logistic regression & NFL kickers'
+author: "Skidmore College, MA 276"
+output: beamer_presentation
+fontsize: 10pt
+---
+
+
+## Goals
+
+
+
+- Kicker statistics, NFL
+
+- Extensions: Expected points
+
+- Tools: Logistic regression
+
+
+
+## Review: multivariate linear regression
+
+Model: 
+
+$y_i = \beta_0 + \beta_1*x_{i1} + \beta_2*x_{i2} + \ldots + \beta_{p-1}*x_{i,p-1} + \epsilon_i$
+
+
+Assumptions: 
+
+- $\epsilon_i \sim N(0, \sigma^2)$
+- $\epsilon_i$,$\epsilon_{i'}$ independent for all $i, i'$
+- Linear relationship between $y$ and $x$
+
+## Example: NFL kickers
+
+\footnotesize
+
+```{r, warning = FALSE, message = FALSE}
+library(RCurl); library(mosaic)
+url <- getURL("https://raw.githubusercontent.com/statsbylopez/StatsSports/master/Kickers.csv")
+nfl.kick <- read.csv(text = url)
+head(nfl.kick)
+```
+
+## Example: NFL kickers
+
+\small
+
+```{r, fig.width=5, fig.height=3.2}
+fit.0 <- lm(Success ~ Distance, data = nfl.kick)
+xyplot(jitter(Success) ~ Distance, data = nfl.kick)
+```
+
+What are the problems?
+
+
+
+## Example: NFL kickers
+
+\small
+
+```{r, fig.width=6, fig.height=3.6}
+fit.0 <- lm(Success ~ Distance, data = nfl.kick)
+qqnorm(fit.0$resid)
+```
+
+What are the problems?
+
+
+
+## Logistic regression model
+
+Model:  $log(\frac{P(y = 1)}{1-P(y = 1)}) = \beta_0 + \beta_1*x_{1} + \beta_2*x_{2} + \ldots + \beta_{p-1}*x_{p-1}$
+
+Comments: 
+
+- Dependent variable: log-odds 
+    - What are odds?
+  
+- Model checks more complex 
+    
+
+- Uses $z$ test statistics for parameters
+
+
+## Logistic regression model
+
+Model:  $log(\frac{P(y = 1)}{1-P(y = 1)}) = \beta_0 + \beta_1*x_{1} + \beta_2*x_{2}$
+
+Extract probabilities:
+
+- $P(y = 1)$:
+
+
+
+
+## Estimated logistic regression model
+
+Estimated model: $log(\frac{P(y = 1)}{1-P(y = 1)}) = \hat{\beta_0} + \hat{\beta_1}*x_{1} + \hat{\beta_2}*x_{2} + \ldots + \hat{\beta_{p-1}}*x_{p-1}$
+
+Slope interpretation: 
+
+- $\hat{\beta_1}$: 
+
+- $e^{\hat{\beta_1}}$:
+
+
+## Ex: Field goal kicking by distance
+
+\footnotesize
+
+Model: $log(\frac{P(Success = 1)}{1-P(Success = 1)}) = \beta_0 + \beta_1*Distance$
+
+
+```{r}
+fit.1 <- glm(Success ~ Distance, data = nfl.kick, family = "binomial")
+msummary(fit.1)
+```
+
+Slope interpretation: $e^{\hat{\beta_1}}$
+
+## Ex: Field goal kicking by distance
+
+\footnotesize
+
+```{r}
+msummary(fit.1)
+```
+
+Estimate the probability of a successful 50-yard field goal:
+
+
+## Ex: Field goal kicking by distance
+
+\footnotesize
+
+```{r}
+msummary(fit.1)
+```
+
+Estimate the probability of a successful 51-yard field goal:
+
+
+## Ex: Field goal kicking by distance
+
+
+
+Use your answers on the previous slides to estimate the odds of a 51-yard field goal relative to the odds of a 50-yard field goal. Where else do you see this number?
+
+
+
+## Model checking 
+
+- Model checking for logistic regression relies on assessment of fit
+    - Are the predicted probabilities accurate?
+    - Ex: 48 to 52 yard field goals
+
+\footnotesize
+
+```{r}
+long.FG <- filter(nfl.kick, Distance >= 48, Distance <= 52)
+tally(Success ~ Distance, format = "proportion", data = long.FG)
+```
+
+
+## Expected points
+
+Probability: $E(X) = \sum_{i=1} x_i*P(X=x_i)$
+
+1. What is expected points from a 50 yard field goal?
+
+2. What are expected points for 20, 30, 40, 50, 60 yard field goals?
+
+\footnotesize
+
+```{r}
+Distance <- data.frame(Distance = c(20, 30, 40, 50, 60))
+pred <- predict(fit.1, Distance, type = "response")
+round(pred, 2)*3
+```
+
+
+## Why it matters?
+
+
+Offensive decision making:
+
+1. Maximize number of points scored on a drive
+    - What does this entail?
+    - Should we kick the field goal or punt?
+    - Should we kick the field goal or go for it?
+    - When to go for it on fourth down?
+    
+2. Maximize chances of winning the game
+    - When does this differ from (1)?
+
