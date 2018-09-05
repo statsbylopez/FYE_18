@@ -18,6 +18,10 @@ library(tidyverse)
 
 3. Read the following two articles: [Sabermetric Manifesto](http://www.seanlahman.com/baseball-archive/sabermetrics/sabermetric-manifesto/) and [The Moneyball Revolution](http://www.slate.com/articles/sports/the_next_20/2016/09/fire_joe_morgan_and_the_moneyball_revolution.html)
 
-The following questions refer to the articles above: 
+The following questions refer to the articles above, and perhaps some general sports knowledge. 
 
-4. 
+4. Our class starts with baseball statistics. What about baseball -- and baseball stats -- makes it the most reasonable starting point? 
+
+5. Look up a definition to sabermetrics. Is it a term that can apply to other sports? Or is it specific to baseball?
+
+6. 
