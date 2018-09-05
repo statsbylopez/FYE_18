@@ -23,9 +23,7 @@ library(tidyverse)
 +  Homeworks are due at the start of class -- please print the HTML and hand in. Be sure to staple your homework and ensure that it is in an easily readable format. 
 
 
-1. Install the `tidyverse` package on your computer, and ensure that you can successfully load the library.  You do not need to show code or output for this answer. 
-
-2. Read Chapters 1 through 4 in R for Data Science, which can be found at ([http://r4ds.had.co.nz/](http://r4ds.had.co.nz/)). You do not need to show code or output for this answer
+1. *Print* and *Read* Chapters 1 through 4 in R for Data Science, which can be found at ([http://r4ds.had.co.nz/](http://r4ds.had.co.nz/)). You do not need to show code or output for this answer. 
 
 3. Identify what is wrong with the following code chunks:
 
