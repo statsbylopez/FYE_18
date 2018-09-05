@@ -1,7 +1,5 @@
 ---
-title: "Homework guideline"
-author: "Your name here"
-date: "Due date here"
+title: "HW 0"
 output:
   html_document
 ---
@@ -11,61 +9,15 @@ knitr::opts_chunk$set(eval = TRUE, message = FALSE, warning = FALSE)
 library(tidyverse)
 ```
 
-***General instructions for homeworks***: 
 
-+  Make a new R Markdown file (.Rmd) referring to the assignment on the course Github page
-+  Change the heading to include the homework number, your name, and the due date
-+  Save the R Markdown file (named as:  [MikeID]-[hw01].Rmd -- e.g. "mlopez-hw01.Rmd") to somewhere where you'll be able to access it later (zip drive, My Documents, Dropbox, etc)
-+  Your file should contain the code/commands to answer each question in its own code block, which will also produce plots that will be automatically embedded in the output file
-+  **Each answer must be supported by written statements (unless otherwise specified) as well as any code used**: In other words, if the answer is `24`, you should write "The answer is 24" (as opposed to just showing the code and output).
-+  Include the names of anyone you collaborated with at the top of the assignment
-+  I recommend copying the raw .Rmd code from the Github page (link [https://raw.githubusercontent.com/statsbylopez/FYE_18/master/HWs/HW%20base.Rmd](https://raw.githubusercontent.com/statsbylopez/FYE_18/master/HWs/HW%20base.Rmd). 
-+  Homeworks are due at the start of class -- please print the HTML and hand in. Be sure to staple your homework and ensure that it is in an easily readable format. 
+*Note*: This will be the only assignment that will not be done using R/RStudio. For this assignment only, you can use Word or hand-written comments. 
 
+1. Read through all of your syllabi. For each, identify one unique characteristics about each class. 
 
-1. *Print* and *Read* Chapters 1 through 4 in R for Data Science, which can be found at ([http://r4ds.had.co.nz/](http://r4ds.had.co.nz/)). You do not need to show code or output for this answer. 
+2. Make a calendar of the important dates, which include midterms, exams, or the due dates for major papers. Due this for each class. Send a picture of your calendar (cell phone is fine) prior to class, where it's clear you have each deadline labelled appropriate for each class.
 
-3. Identify what is wrong with the following code chunks:
+3. Read the following two articles: [Sabermetric Manifesto](http://www.seanlahman.com/baseball-archive/sabermetrics/sabermetric-manifesto/) and [The Moneyball Revolution](http://www.slate.com/articles/sports/the_next_20/2016/09/fire_joe_morgan_and_the_moneyball_revolution.html)
 
--  
+The following questions refer to the articles above: 
 
-```{r}
-Prof.lopez <- "awesome"
-Prof.1opez
-```
-
--  
-
-```{r}
-mtcars %>% mutate(gear.times.carb = gear(carb))
-```
-
--  
-
-```{r}
-mtcars %>% filter(cyy == 6)
-```
-
-
--  
-
-```{r}
-mtcars %>% filter(vs = 0)
-```
-
-
-4. One of the more useful data sets in R is `nycflights13`. Download this package, and ensure that you have it loaded in R. Within that package is a data set called `flights`, which you can take a look at using the following code.
-
-- How many rows (flights) and columns (variables) are there in the flight data set?
-
-- Identify a numerical variable and a character variable in the `flights` data. 
-
-- Identify the average departure delay (`dep_delay`) in the flights data set.
-
-- Use a tool that we have not yet discussed in class to answer **any** question of interest. As an example, what day of the month do most flights leave on? Do not answer this question, but answer something similar. I encourage you to use outside sources for code!
-
-- Using Chapter 3 of the textbook, show *two* plots using the `flights` data set. They can be any type of plot -- try a few kinds!
-
-- Add better x-axis labels, y-axis labels, a title, and a subtitle to each of your two plots. Note: you only need to show the final versions of the two plots. 
-
-
+4. 
