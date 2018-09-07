@@ -22,6 +22,9 @@ The following questions refer to the articles above, and perhaps some general sp
 
 4. Our class starts with baseball statistics. What about baseball -- and baseball stats -- makes it the most reasonable starting point? 
 
-5. Look up a definition to sabermetrics. Is it a term that can apply to other sports? Or is it specific to baseball?
+5. Think of a metric in a sport besides baseball that is (i) strongly linked to winning and also mostly driven by individual contribution, (ii) strongly linked to winning but not driven by individual contribution, (iii) not strongly linked to winning but mostly driven by individual contribution. Do not use any examples discussed in class. 
+6. ERA is a measure of how many runs a pitcher gives up. What are some factors -- outside of a players' control --  that the article lists as impacting ERA?
 
-6. 
+7. Pick a few ways in which folks studying statistics in baseball are described in the Fire Joe Morgan article. Why is there this animosity?
+
+8. Why was Tim McCarver right? 
