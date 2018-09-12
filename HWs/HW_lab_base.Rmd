@@ -1,5 +1,5 @@
 ---
-title: "Homework & lab guidelines"
+title: "Homework or lab title here"
 author: "Your name here"
 date: "Date here"
 output:
@@ -19,24 +19,36 @@ library(tidyverse)
 +  Your file should contain the code/commands to answer each question in its own code block, which will also produce plots that will be automatically embedded in the output file
 +  **Each answer must be supported by written statements (unless otherwise specified) as well as any code used**: In other words, if the answer is `24`, you should write "The answer is 24" (as opposed to just showing the code and output).
 +  Include the names of anyone you collaborated with at the top of the assignment
-+  Homeworks are due at the start of class -- please print the HTML and hand in. Be sure to staple your homework and ensure that it is in an easily readable format. 
++  Homeworks are due at the start of class -- **please print the HTML** and hand in. Be sure to staple your homework and ensure that it is in an easily readable format. 
 +  Labs are not turned in
 +  You can delete this header for each assignment
+
+## General code
+
+Any code that you want to start with can go here. 
+
+```{r}
+## Type in code below
+
+```
 
 
 ## Question 1
 
-Your answer goes here
+Any initial comments go here. 
 
 ```{r}
 ## Your code goes below
 ```
 
+Your answer goes here
 
 ## Question 2
 
-Your answer goes here
+Any initial comments go here. 
 
 ```{r}
 ## Your code goes below
 ```
+
+Your answer goes here
