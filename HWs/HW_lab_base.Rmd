@@ -1,0 +1,42 @@
+---
+title: "Homework & lab guidelines"
+author: "Your name here"
+date: "Date here"
+output:
+  html_document
+---
+
+```{r global_options, include=FALSE, message=FALSE, warning = FALSE}
+knitr::opts_chunk$set(eval = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+```
+
+**General instructions for homeworks and labs**: 
+
++  Make a new R Markdown file (.Rmd) referring to the assignment on the course Github page
++  Change the heading to include the homework or lab name and the due date
++  Save the R Markdown file (named as:  [MikeID]-[hw01].Rmd -- e.g. "mlopez-hw01.Rmd").
++  Your file should contain the code/commands to answer each question in its own code block, which will also produce plots that will be automatically embedded in the output file
++  **Each answer must be supported by written statements (unless otherwise specified) as well as any code used**: In other words, if the answer is `24`, you should write "The answer is 24" (as opposed to just showing the code and output).
++  Include the names of anyone you collaborated with at the top of the assignment
++  Homeworks are due at the start of class -- please print the HTML and hand in. Be sure to staple your homework and ensure that it is in an easily readable format. 
++  Labs are not turned in
++  You can delete this header for each assignment
+
+
+## Question 1
+
+Your answer goes here
+
+```{r}
+## Your code goes below
+```
+
+
+## Question 2
+
+Your answer goes here
+
+```{r}
+## Your code goes below
+```
