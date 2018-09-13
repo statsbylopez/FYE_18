@@ -60,8 +60,8 @@ ggplot(Teams.2016.batting, aes(x = R, y = H)) +
          geom_point() 
 ```
 
-a) Identify an appropriate title for the scatter plot
-b) Is there an association between runs scored and hits? How would you describe it? 
+- Identify an appropriate title for the scatter plot
+- Is there an association between runs scored and hits? How would you describe it? 
 
 
 ## Question 2: 
