@@ -1,0 +1,138 @@
+---
+title: "Homework or lab title here"
+author: "Your name here"
+date: "Date here"
+output:
+  html_document
+---
+
+```{r global_options, include=FALSE, message=FALSE, warning = FALSE}
+knitr::opts_chunk$set(eval = FALSE, message = FALSE, warning = FALSE)
+library(tidyverse)
+```
+
+
+# Important note 1
+
+Open RStudio by going to [http://r.skidmore.edu/](http://r.skidmore.edu/). 
+ 
+
+# Important note 2
+
+Open a new R Markdown file (File / New File / R Markdown...).  You can create a basic name -- Lab0, for example -- and that'll set you up with a new file ready to go.
+
+# Important note 3
+
+Click on the link below:
+
+[https://raw.githubusercontent.com/statsbylopez/FYE_18/master/HWs/HW_lab_base.Rmd](https://raw.githubusercontent.com/statsbylopez/FYE_18/master/HWs/HW_lab_base.Rmd)
+
+Copy and paste the text at the link above into your Markdown document. As in our lab, you'll use this file to write your code. In general, follow the steps below: 
+
+- Copy, paste, and possibly edit code into a code chunk for each question
+- Run the code and make sure it works
+- Write up a solution to the question below
+- `Knit` the file to make sure that it appropriately renders an HTML
+- When all questions are done, you can print the HTML as your final product. 
+
+## Initial code
+
+The code below will create the `Teams.2016.batting` data frame. We will use that data set for the remainder of the homework. 
+
+```{r, eval=FALSE}
+library(Lahman)
+library(tidyverse)
+Teams.2016 <- Teams %>% filter(yearID >= 2016)
+dim(Teams.2016)
+names(Teams.2016)
+Teams.2016.batting <- Teams.2016 %>% 
+  select(yearID:SF)
+Teams.2016.batting <- Teams.2016.batting %>% 
+  mutate(big.power = HR > 200)
+```
+
+## Question 1: 
+
+The following code creates a scatter plot. 
+
+```{r, eval=FALSE}
+ggplot(Teams.2016.batting, aes(x = R, y = H)) + 
+         geom_point() 
+```
+
+a) Identify an appropriate title for the scatter plot
+b) Is there an association between runs scored and hits? How would you describe it? 
+
+
+## Question 2: 
+
+Each of the following lines of code makes a histogram.
+
+```{r}
+ggplot(Teams.2016.batting, aes(x = R)) + 
+         geom_histogram()
+ggplot(Teams.2016.batting, aes(x = R)) + 
+         geom_histogram(binwidth = 30) 
+```
+
+- Describe the differences between each plot. Which one better fits the data?
+- Describe the distribution of runs scored among MLB teams in 2016. Consider the center, shape, and spread of the data
+
+## Question 3: 
+
+Perhaps we decide to compare different groups -- in this case leagues. Here, we use boxplots to compare the different leagues using the `SB` (stolen base) variable. 
+
+```{r, eval=FALSE}
+ggplot(Teams.2016.batting, aes(x = lgID, y = SB)) + 
+  geom_boxplot()
+```
+
+- Describe the differences between stolen bases among MLB teams in the 2016 season, comparing the National league to the American League. 
+
+
+
+## Question 4
+
+The `arrange()` can make identifying the best or worst teams or players quite simple. Here's an example: 
+
+```{r, eval=FALSE}
+Teams.2016.batting %>% arrange(R)
+Teams.2016.batting %>% arrange(-R)
+```
+
+- What is the difference between `arrange(R)` and `arrange(-R)` in the code above? 
+- Which team scored the most runs? Which team scored the fewest? 
+
+## Question 5
+
+- Arrange the `Teams.2016.batting` data set by the `SB` variable. Which team had the most stolen bases in the 2016? How many did they have? 
+
+## Question 6. 
+
+- Make a histogram of team wins during the 2016 season. Is the distribution of wins skewed left, right, or symmetric?
+
+## Question 7
+
+- Describe the center, shape, and spread of the `X3B` variable, using an appropriate plot.
+
+## Question 8
+
+- How can you change the x and y labels on your plots? How can you add a title? Use [google](www.google.com) to guide you, and update your plot in Question 3. One trick: include `ggplot` in your google search.
+
+## Question 9
+
+Moneyball was based on which team-statistics most strongly correlated to runs. Though there are some variables that already exist in the data, the code below creates batting average, on base percentage, slugging percentage, and OPS. Each of these are metrics used to evaluate players in baseball. 
+
+```{r, eval=FALSE}
+Teams.2016.batting <- Teams.2016.batting %>%
+  mutate(BA = (H/AB), 
+         OBP = (H + BB)/(AB + BB), 
+         SLG = ((H - X2B - X3B - HR)*1 + X2B*2 + X3B*3 + HR*4)/AB, 
+         OPS = OBP + SLG)
+```
+
+- Using scatter plots for each pair, find the variable -- `BA`, `OBP`, `SLG` or `OPS` -- that you think seems to boast the strongest association to runs (`R`). Your answer should include four scatter plots, as well as a write-up of which association appears strongest. 
+
+## Question 10
+
+- Knit your homework, and edit to make sure it comes out cleanly and professionally. You are graded on each assignment in terms of spelling, grammar, and presentation. Take time to review your document and edit accordingly. 
