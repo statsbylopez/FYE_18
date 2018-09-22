@@ -1,0 +1,117 @@
+---
+title: "Homework or lab title here"
+author: "Your name here"
+date: "Date here"
+output:
+  html_document
+---
+
+```{r global_options, include=FALSE, message=FALSE, warning = FALSE}
+knitr::opts_chunk$set(eval = FALSE, message = FALSE, warning = FALSE)
+library(tidyverse)
+```
+
+
+# Important note 1
+
+Open RStudio by going to [http://r.skidmore.edu/](http://r.skidmore.edu/). 
+ 
+
+# Important note 2
+
+Open a new R Markdown file (File / New File / R Markdown...).  You can create a basic name -- Lab0, for example -- and that'll set you up with a new file ready to go.
+
+# Important note 3
+
+Click on the link below:
+
+[https://raw.githubusercontent.com/statsbylopez/FYE_18/master/HWs/HW_lab_base.Rmd](https://raw.githubusercontent.com/statsbylopez/FYE_18/master/HWs/HW_lab_base.Rmd)
+
+Copy and paste the text at the link above into your Markdown document. As in our lab, you'll use this file to write your code. In general, follow the steps below: 
+
+- Copy, paste, and possibly edit code into a code chunk for each question
+- Run the code and make sure it works
+- Write up a solution to the question below
+- `Knit` the file to make sure that it appropriately renders an HTML
+- When all questions are done, you can print the HTML as your final product. 
+
+## Initial code
+
+The code below will create the `Pitchers.2016` data frame. We will use that data set for the remainder of the homework. 
+
+```{r, eval=FALSE}
+library(Lahman)
+library(tidyverse)
+Pitchers.2016 <- Pitching %>% 
+  filter(yearID >= 2016, 
+         IPouts > 300) %>% 
+  mutate(WL.pct = (W)/(W + L), 
+         FIP = ((13*HR)+(3*(BB+HBP))-(2*SO))/(IPouts/3) + 3.18)
+```
+
+## Question 1: 
+
+Identify the dimensions of the `Pitchers.2016` data frame -- how many pitchers does it refer to, and how many variables are collected for each pitcher? 
+
+For pitchers that pitched in 2016 -- which ones ended up in our data set? You can learn more about the `Pitching` data set by running `?Pitching` and reading through the help file in the bottom right of the RStudio console. 
+
+## Question 2: 
+
+A coach is curious about the relationship between opponent batting average (`BAOpp`) and won loss percentage (`WL.pct`). Make an appropriate plot, and describe the association between these two variables. 
+
+Next, roughly estimate the correlation between these two variables (you do not need to actually estimate this correlation, but you should be close). 
+
+## Question 3: 
+
+A player is curious if pitchers in the American League tend to give up more hits than those in the National League. Make an appropriate plot, and identify if there are differences in pitcher stats between the two leagues. 
+
+## Question 4
+
+Pitchers in the National League typically record better statistics than those in the American League. Most of this is due to their competition -- pitchers also bat in the National League, and most of them aren't very good at it. This makes it easier for National League pitchers. 
+
+Propose one way that analysts could deal with this complication when it comes to analyzing pitchers. 
+
+## Question 5
+
+Referring to our class notes, we want to make a correlation matrix with the following hitter metrics: G, IPouts, H, BB, SO, BAOpp, ERA, WL.pct, FIP. A proper answer should both show the matrix itself, as well as an image generated using the `corplot` command. 
+
+## Question 6
+
+Summarize the correlation matrix in 3-4 sentences. Consider which variables are most strongly related to one another? Consider which variables do not appear to be related to one another. 
+
+## Question 7. 
+
+Read about the `FIP` metric that was calculated in the `Pitchers.2016` data set: [https://www.fangraphs.com/library/pitching/fip/](https://www.fangraphs.com/library/pitching/fip/). Summarize (i) If you think FIP is important to team success, (ii) If you think think FIP does a good or bad job of separating out outcomes that pitchers are responsible for and (iii) If you think FIP will be more repeatable than other pitching metrics. 
+
+## Question 8
+
+Identify the playerID with the best and worst `FIP` among the pitchers in this data set. Can you extract the names of the actual pitchers? 
+
+## Question 9
+
+Let's assess the year to year repeatability of a few pitching metrics to identify which ones carry over from one year to the next. Here's some code to help out. 
+
+```{r}
+Pitchers.15.16 <- Pitching  %>% 
+  filter(yearID >= 2015, 
+         IPouts > 200) %>%
+  mutate(WL.pct = (W)/(W + L), 
+         FIP = ((13*HR)+(3*(BB+HBP))-(2*SO))/(IPouts/3) + 3.18) %>% 
+  arrange(playerID, yearID) %>% 
+  group_by(playerID) %>% 
+  mutate(WL.pct.next = lead(WL.pct, 1), 
+         FIP.next = lead(FIP, 1), 
+         ERA.next = lead(ERA, 1))
+```
+
+Using the `Pitchers.15.16` data set, make scatter plots of (i) `WL.pct` and `WL.pct.next`, (ii) `FIP` and `FIP.next`, and (iii) `ERA` and `ERA.next`. 
+
+Using these plots, identify which of the three metrics -- win loss percentage, fielding independent pitching, and earned run average -- tends to be most and least repeatable. 
+
+## Question 10
+
+Knit your homework, and edit to make sure it comes out cleanly and professionally. You are graded on each assignment in terms of spelling, grammar, and presentation. Take time to review your document and edit accordingly. 
+
+## Question 11 (*bonus*)
+
+Go to guess the correlation -- [http://guessthecorrelation.com/](http://guessthecorrelation.com/) -- and play. If you can score above a 100, email me a screenshot!
