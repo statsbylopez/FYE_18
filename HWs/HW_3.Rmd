@@ -1,0 +1,159 @@
+---
+title: "Homework or lab title here"
+author: "Your name here"
+date: "Date here"
+output:
+  html_document
+---
+
+```{r global_options, include=FALSE, message=FALSE, warning = FALSE}
+knitr::opts_chunk$set(eval = FALSE, message = FALSE, warning = FALSE)
+library(tidyverse)
+```
+
+
+# Important note 1
+
+Open RStudio by going to [http://r.skidmore.edu/](http://r.skidmore.edu/). 
+ 
+
+# Important note 2
+
+Open a new R Markdown file (File / New File / R Markdown...).  You can create a basic name -- Lab0, for example -- and that'll set you up with a new file ready to go.
+
+# Important note 3
+
+Click on the link below:
+
+[https://raw.githubusercontent.com/statsbylopez/FYE_18/master/HWs/HW_lab_base.Rmd](https://raw.githubusercontent.com/statsbylopez/FYE_18/master/HWs/HW_lab_base.Rmd)
+
+Copy and paste the text at the link above into your Markdown document. As in our lab, you'll use this file to write your code. In general, follow the steps below: 
+
+- Copy, paste, and possibly edit code into a code chunk for each question
+- Run the code and make sure it works
+- Write up a solution to the question below
+- `Knit` the file to make sure that it appropriately renders an HTML
+- When all questions are done, you can print the HTML as your final product. 
+
+## Readings 
+
+By Seth Partnow:
+
+1 - [Demystification of Basketball Analytics](https://fansided.com/2015/02/22/demystification-of-diy-defining-basketball-analytics-down/)
+
+2 - [MoreyBall and Goodhart's Law](https://sports.vice.com/en_us/article/jp7xb3/moreyball-goodharts-law-and-the-limits-of-analytics)
+
+## Question 1
+
+Seth is the Director of Basketball Research for the Milwaukee Bucks. Read his two articles above, and email me two questions for him for next week (email me by Sunday night).
+
+
+
+## Initial code
+
+The code below -- which will take a few seconds to run -- loads a bunch of shots from the 2015-16 NBA season.
+
+```{r, eval=FALSE}
+library(RCurl)
+library(tidyverse)
+url <- getURL("https://raw.githubusercontent.com/JunWorks/NBAstat/master/shot.csv")
+nba.shot <- read.csv(text = url)
+nba.shot <- nba.shot %>% 
+  filter(PTS < 4) %>% 
+  na.omit()
+nba.shot %>% head()
+```
+
+**Note**: The `na.omit()` command deletes rows that are missing any shot information. 
+
+
+
+## Question 1: 
+
+Identify the dimensions of the `nba.shot` data frame -- how many shows does it refer to, and how many variables are collected for each show? 
+
+
+
+## Question 2: 
+
+
+The style of data defined in `nba.shot` differs dramatically from all of the data sets that we worked with in Major League Baseball. Apart from sport and variable differences, what is the primary difference between this NBA shot data and the MLB data that we worked with? 
+
+
+## Question 3
+
+Let's look at the effect of nearest defender on the chance of a shot going in. 
+
+```{r}
+nba.shot <- nba.shot %>% 
+  mutate(CLOSE_DEF_DIST_CAT = case_when(CLOSE_DEF_DIST < 1 ~ "0-1", 
+                                        CLOSE_DEF_DIST < 2 ~ "1-2",
+                                        CLOSE_DEF_DIST < 3 ~ "2-3",
+                                        CLOSE_DEF_DIST < 4 ~ "3-4",
+                                        CLOSE_DEF_DIST >= 4 ~ "4 or more")) 
+
+shot.summaries <- nba.shot %>% 
+  group_by(PTS_TYPE, CLOSE_DEF_DIST_CAT) %>% 
+  summarise(shot.rate = mean(FGM), 
+            n.shots = n())
+
+shot.summaries
+```
+
+Describe the link between the distance of the nearest defender and the chance that each shot goes in. Make sure you make the distinction for two-point and three-point shots.
+
+## Question 4
+
+It's straightforward to tell a coach that shooters that are open are more likely to make shots. Describe one other way you could use the table above to inform team strategy or player analysis. 
+
+
+
+## Question 5
+
+Make a histogram to identify the center, shape, and spread of the `SHOT_DIST` variable. 
+
+## Question 6
+
+One graphing command that's super useful is `~facet_wrap()`, which allows us to make unique graphs for individual groups.
+
+```{r}
+top.shooters <- nba.shot %>% 
+  group_by(playerName) %>% 
+  count() %>% 
+  arrange(-n) %>% 
+  ungroup() %>% 
+  top_n(12)
+nba.shots.famous <- nba.shot %>% 
+  filter(playerName %in% top.shooters$playerName)
+```
+
+The above command extracts the 12 shooters who took the most shots in the 15-16 season. Facet the histogram you made in Question 5 by `playerName`. *Hint*: You can do this by adding `+ facet_wrap(~playerName)` to your code in Question 5. 
+
+Next, describe the differences in the distances where each player shoots from. As usual, consider the center (or perhaps centers), shape, and spread.
+
+## Question 7
+
+Look up how to add a vertical line to `ggplot()` graphs. Add a vertical line to correspond to the traditional three-point line distance of 22-ft (note the actual line varies from 22 to 23.75 ft).
+
+## Question 8
+
+Let's analyze player metrics for our top-12 shooters.
+
+```{r}
+shooter.summaries <- nba.shots.famous %>% 
+  group_by(playerName) %>% 
+  summarise(FGA = n(), 
+            fg.pct = sum(FGM)/FGA, 
+            efg.pct = (sum(FGM) + sum(PTS ==3)*0.5)/FGA)
+shooter.summaries
+```
+
+Make a scatter plot of `fg.pct` and `efg.pct` using the data frame above, and identify which shooters rank highest under each metric.
+
+## Question 9
+
+Can effective field goal percentage be lower than field goal percentage? Answer yes or no, and justify your answer.
+
+## Question 10
+
+Knit your homework, and edit to make sure it comes out cleanly and professionally. You are graded on each assignment in terms of spelling, grammar, and presentation. Take time to review your document and edit accordingly. 
