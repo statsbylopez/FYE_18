@@ -66,14 +66,6 @@ nba.shot %>% head()
 
 **Note**: The `na.omit()` command deletes rows that are missing any shot information. 
 
-
-
-## Question 1: 
-
-Identify the dimensions of the `nba.shot` data frame -- how many shows does it refer to, and how many variables are collected for each show? 
-
-
-
 ## Question 2: 
 
 
