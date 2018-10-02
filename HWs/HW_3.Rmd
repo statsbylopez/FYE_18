@@ -102,7 +102,7 @@ It's straightforward to tell a coach that shooters that are open are more likely
 
 ## Question 5
 
-Make a histogram to identify the center, shape, and spread of the `SHOT_DIST` variable. 
+Make a histogram to identify the center, shape, and spread of the `SHOT_DIST` variable. Use the `nba.shot` data set. 
 
 ## Question 6
 
@@ -119,7 +119,7 @@ nba.shots.famous <- nba.shot %>%
   filter(playerName %in% top.shooters$playerName)
 ```
 
-The above command extracts the 12 shooters who took the most shots in the 15-16 season. Facet the histogram you made in Question 5 by `playerName`. *Hint*: You can do this by adding `+ facet_wrap(~playerName)` to your code in Question 5. 
+The above command extracts the 12 shooters who took the most shots in the 15-16 season. Facet the histogram you made in Question 5 by `playerName`. *Hint 1*: You can do this by adding `+ facet_wrap(~playerName)` to your code in Question 5. *Hint 2*: Use the `nba.shots.famous` data set. 
 
 Next, describe the differences in the distances where each player shoots from. As usual, consider the center (or perhaps centers), shape, and spread.
 
