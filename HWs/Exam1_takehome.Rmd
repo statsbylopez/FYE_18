@@ -1,0 +1,165 @@
+---
+title: "Exam 1, Sports Analytics"
+author: "Name: ___________________"
+date: "October, 2018"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r global_options, message=FALSE, warning = FALSE, echo = FALSE}
+knitr::opts_chunk$set(eval = TRUE, message = FALSE, warning = FALSE, fig.height = 2.5, fig.width = 3)
+library(tidyverse)
+```
+
+# Important note 1
+
+First, we'll open RStudio by going to [http://r.skidmore.edu/](http://r.skidmore.edu/). 
+
+# Important note 2
+
+Open a new R Markdown file (File / New File / R Markdown...).  You can create a basic name -- Lab0, for example -- and that'll set you up with a new file ready to go.
+
+# Important note 3
+
+The base RMarkdown file is not particularly useful. Instead, click on the link below:
+
+[https://raw.githubusercontent.com/statsbylopez/FYE_18/master/HWs/HW_lab_base.Rmd](https://raw.githubusercontent.com/statsbylopez/FYE_18/master/HWs/HW_lab_base.Rmd)
+
+Copy and paste the text at the link above into your Markdown document. 
+
+Set the output to HTML mode, and click "Knit HTML" at the top (or Command+Shift+K on Mac).  This should produce a web page with the knitting procedure executing your code blocks.  You can edit this new file to produce your homework submission. You will also print this and hand in for each homework assignment.
+
+## Important note 4
+
+A printed, signed version of your exam is due in class on Wednesday (beginning of class. No extensions will be granted).
+
+
+# Part 1 (60 points)
+
+The first part of the test will use the Lahman package in R. Our interest lies in understanding the relationship between salary and player specific characteristics. To start, we need to join two data frames. We also only look at roughly the last 15 years of players (salary data has not always been available), and restrict our sample to those players with at least 500 at bats in a season. A few additional but important notes:
+
+- In this data set, `salary` is measured in dollars - we divide by a million to get `salary2`, which is a bit easier to interpret.
+
+- The variable `TB` stands for total bases
+
+- The variable `RC1` stands for runs created. 
+
+```{r, message = FALSE, warning = FALSE, eval = FALSE}
+library(Lahman)
+library(tidyverse)
+data("Salaries")
+data("Batting")
+
+Batting.1 <- Batting %>% left_join(Salaries)
+Batting.1 <- Batting.1 %>%
+      filter(yearID >=2000, AB >= 500) %>%
+      mutate(X1B = H - X2B - X3B - HR,
+            TB = X1B + 2*X2B + 3*X3B + 4*HR,
+            RC1 = (H + BB)*TB/(AB + BB), 
+            salary2 = salary/10^6)
+```
+
+## Question 1 
+
+Use an appropriate visualization to look at the link between runs created (`RC1`) and salary (`salary2`). 
+
+In one sentence, describe the association that you see. 
+
+## Question 2 
+
+Make side by side boxplots to compare how the salary of players in the `Batting.1` varies by team (`teamID`). 
+
+*Note:* You can rotate the x-axis labels using the command `+ theme(axis.text.x = element_text(angle = 45, hjust = 1))`
+
+
+
+## Question 3 
+
+Using the chart above, answer the following questions.
+
+- Which teams have the lowest the highest median salary in the `Batting.1` data set?
+
+- Identify the 75th percentile of player salaries among those on Atlanta (`ATL`). 
+
+- Identify the shape of the distribution of player salaries among most teams. 
+
+## Question 4
+
+Using a correlation matrix, identify which of the following variables is most closely linked to `RC1`: singles, doubles, triples, home runs, stolen bases, or salary. 
+
+## Question 5
+
+
+A general manager asks you to identify the player-seasons which, given a players' salary, were the best value in terms of runs created. Where would that point lie on the following graph?
+
+```{r}
+ggplot(Batting.1, aes(salary2, RC1)) + geom_point()
+```
+
+## Question 6
+
+Use the filter command to identify the point in question above. What player-season does this correspond to?
+
+## Question 7
+
+Make side-by-side boxplots to look at player salaries by season. Explain how that could impact comparisons of players over time. 
+
+## Question 8 
+
+Using information from our class to guide you, make an educated guess if the link between performance and salary among pitchers is stronger, weaker, or similar to the one that we just observed with hitters. Do not perform any analysis, but justify your answer in 1-2 sentences. 
+
+
+
+# Part II (40 points)
+
+In this section, we'll explore the interaction between various player-level metrics in basketball. 
+
+Recall: to load the data, run the following code.
+
+```{r, eval = FALSE}
+url <- getURL("https://raw.githubusercontent.com/JunWorks/NBAstat/master/shot.csv")
+nba.shot <- read.csv(text = url)
+nba.two <- nba.shot %>% 
+  filter(PTS_TYPE == 2) %>% 
+  na.omit()
+player.summaries <- nba.two %>% 
+  group_by(playerName) %>% 
+  summarise(ave.defender.dist = mean(CLOSE_DEF_DIST), 
+            ave.touch.time = mean(TOUCH_TIME), 
+            ave.dribbles = mean(DRIBBLES), 
+            ave.shot.clock = mean(SHOT_CLOCK), 
+            fgp = mean(FGM),
+            n.shots = n()) %>% 
+  filter(n.shots >= 100)
+```
+
+
+
+## Question 1 
+
+Identify the players in `player.summaries` with the highest and lowest field goal percentages.
+
+## Question 2
+
+Make a histogram of average touch time among the players in the `player.summaries` data set. Describe the center shape, and spread of this variable. 
+
+## Question 3
+
+Use an appropriate plot to identify how average number of dribbles is linked to the average time on a shot clock when a player shoots. 
+
+## Question 4
+
+Only one season of shots is included in the `player.summaries` data set. Identify how researchers looking to assess the repeatability of a metric could still do so even when only using one season of data. 
+
+
+## Question 5 (20 points)
+
+Often times in data analysis, the work is more open ended. A coach wants you to take the `player.summaries` data set and identify something interesting that is actionable, insightful, and accurate. Using the `player.summaries` data set, identify an interesting conclusion, and in 3-4 clear and concise sentences, explain to the coach what it all means. 
+
+
+#### Honor code
+
+Write the following, and sign
+
+*While taking this examinations, I have not witnessed any wrongdoing, nor have I personally violated any conditions of the Skidmore College honor code.*
