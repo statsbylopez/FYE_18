@@ -118,6 +118,7 @@ In this section, we'll explore the interaction between various player-level metr
 Recall: to load the data, run the following code.
 
 ```{r, eval = FALSE}
+library(RCurl)
 url <- getURL("https://raw.githubusercontent.com/JunWorks/NBAstat/master/shot.csv")
 nba.shot <- read.csv(text = url)
 nba.two <- nba.shot %>% 
