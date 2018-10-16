@@ -1,0 +1,117 @@
+---
+title: "Homework or lab title here"
+author: "Your name here"
+date: "Date here"
+output:
+  html_document
+---
+
+```{r global_options, include=FALSE, message=FALSE, warning = FALSE}
+knitr::opts_chunk$set(eval = FALSE, message = FALSE, warning = FALSE)
+library(tidyverse)
+```
+
+
+# Important note 1
+
+Open RStudio by going to [http://r.skidmore.edu/](http://r.skidmore.edu/). 
+ 
+
+# Important note 2
+
+Open a new R Markdown file (File / New File / R Markdown...).  You can create a basic name -- Lab0, for example -- and that'll set you up with a new file ready to go.
+
+# Important note 3
+
+Click on the link below:
+
+[https://raw.githubusercontent.com/statsbylopez/FYE_18/master/HWs/HW_lab_base.Rmd](https://raw.githubusercontent.com/statsbylopez/FYE_18/master/HWs/HW_lab_base.Rmd)
+
+Copy and paste the text at the link above into your Markdown document. As in our lab, you'll use this file to write your code. In general, follow the steps below: 
+
+- Copy, paste, and possibly edit code into a code chunk for each question
+- Run the code and make sure it works
+- Write up a solution to the question below
+- `Knit` the file to make sure that it appropriately renders an HTML
+- When all questions are done, you can print the HTML as your final product. 
+
+## Readings 
+
+During a game against the Indianapolis Colts, the New England Patriots went for it on 4th-and-2 with two-minutes left in the 4th quarter. You can watch the play here: [https://www.youtube.com/watch?v=I7wY2dHdzSw](https://www.youtube.com/watch?v=I7wY2dHdzSw)
+
+Here are two reports 
+
+1 - [Belichick defends decision to go for it on fourth down vs. Colts](http://www.nfl.com/news/story/09000d5d81441ff6/article/belichick-defends-decision-to-go-for-it-on-fourth-down-vs-colts)
+
+2 - [Did you hear the Patriots went for it?](https://bleacherreport.com/articles/293672-did-you-hear-the-patriots-went-for-it-on-4th-and-2)
+
+
+
+## Question 1
+
+Describe how expected points could be used to evaluate the Patriots decision to go for it on 4th down against Indianapolis. What comparisons could be made? 
+
+## Question 2
+
+Expected points may not make sense as the best framework for evaluating decisions late in NFL games. Why? Use this play and explain what other factors are pertinent to the Patriots' decision.
+
+## Question 3
+
+There were several critiques of the Patriots decision. Most coaches, in all likelihood, would not have gone for it. Which of our explanations from class -- minimax, prospect theory, or risk aversion -- most closely ties into why most coaches would have punted in the Patriots' situation, as opposed to go for it? 
+
+## Initial code
+
+The code below -- which will take a few seconds to run -- loads all plays from the 2017 NFL season. Note that there is a bit of filtering to create a data set, `nfl.exp.pts`, which has play-metrics and several important variables. 
+
+```{r, eval=FALSE}
+library(tidyverse)
+nfl.pbp <- read_csv("https://raw.githubusercontent.com/ryurko/nflscrapR-data/master/legacy_data/season_play_by_play/pbp_2017.csv")
+
+nfl.plays <- nfl.pbp %>% 
+  filter(PlayType == "Pass"|PlayType == "Run"|PlayType == "Sack") 
+
+nfl.exp.pts <- nfl.plays %>% 
+  select(qtr, posteam, DefensiveTeam, desc,  yrdline100, down, ydstogo, ExpPts)
+nfl.exp.pts %>% head()
+```
+
+## Question 4: 
+
+Make a scatter plot of yard line and expected points (expected points on the y-axis). Why are there different values for each yard line?
+
+## Question 5:
+
+We'll want to colour each point by it's down type. Add a colour aesthetic to the graph above, where points are colored based on which down they were (`down`). You can see an example here: [https://ggplot2.tidyverse.org/reference/geom_point.html](https://ggplot2.tidyverse.org/reference/geom_point.html)
+
+How does the graph with each down as a separate colour give additional insight into how expected points work?
+
+## Question 6
+
+First, calculate the expected points prior the following two plays. Second, calculate the change in expected points that occured as a result of play 100. Finally, here's the play -- `nfl.plays$desc[116]` -- Did this play help or hurt the offense? By roughly how much?
+
+Use these two plays: 
+
+```{r}
+nfl.plays %>% slice (116:117) %>% select(No_Score_Prob:Touchdown_Prob)
+```
+
+## Question 7
+
+Compare the change in expected points -- the variable `EPA`, for expected points added -- by possession team (`posteam`) using a boxplot. Describe the plot that you have made. Use the `nfl.plays` data set. 
+
+## Question 8
+
+
+Compare the change in expected points -- the variable `EPA`, for expected points added -- by play type (`PlayType`) using a boxplot. Describe the plot that you have made. Use the `nfl.plays` data set. 
+
+## Question 9
+
+In 3-4 sentences, explain to a coach what your findings in No. 8 suggest. 
+ 
+## Question 10
+
+A coach looks at your graph and notices that the expected points added for some plays are greater than 7 -- explain to him how this is possible. 
+
+## Question 11
+
+Knit your homework, and edit to make sure it comes out cleanly and professionally. You are graded on each assignment in terms of spelling, grammar, and presentation. Take time to review your document and edit accordingly. 
