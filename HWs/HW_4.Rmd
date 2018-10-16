@@ -87,7 +87,7 @@ How does the graph with each down as a separate colour give additional insight i
 
 ## Question 6
 
-First, calculate the expected points prior the following two plays. Second, calculate the change in expected points that occured as a result of play 100. Finally, here's the play -- `nfl.plays$desc[116]` -- Did this play help or hurt the offense? By roughly how much?
+First, calculate the expected points prior the following two plays. Second, calculate the change in expected points that occured as a result of play 116. Finally, here's the play -- `nfl.plays$desc[116]` -- Did this play help or hurt the offense? By roughly how much?
 
 Use these two plays: 
 
