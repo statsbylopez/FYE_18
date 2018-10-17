@@ -41,4 +41,7 @@ head(nfl.kick)
 
 ## On your own
 
-Working in pairs, create your own study of NFL kickers! Consider any of the variables in the data set. Feel free to consult the NBA data set to guide you (how we aggregated shot success rates)
+Working in pairs, create your own study of NFL kickers! 
+
+Estimate the likelihood that a kicker, kicking on grass from 45 yards away in a game with a temperature of 30 degrees in 2010, makes the kick. 
+
