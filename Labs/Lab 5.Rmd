@@ -43,5 +43,5 @@ head(nfl.kick)
 
 Working in pairs, create your own study of NFL kickers! 
 
-Estimate the likelihood that a kicker, kicking on grass from 45 yards away in a game with a temperature of 30 degrees in 2010, makes the kick. 
+Estimate the likelihood that a kicker, kicking on grass from 45 yards away in the 30th minute of a game in 2010, makes the kick. 
 
