@@ -1,0 +1,44 @@
+---
+title: "Lab 5: NFL field goals"
+output:
+  pdf_document: default
+  html_document:
+    css: ../lab.css
+    highlight: pygments
+    theme: cerulean
+author: Michael Lopez, Skidmore College
+---
+
+
+```{r setup, include=FALSE, eval = FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+# Important note 1
+
+First, we'll open RStudio by going to [http://r.skidmore.edu/](http://r.skidmore.edu/). 
+
+# Important note 2
+
+Open a new R Markdown file (File / New File / R Markdown...).  You can create a basic name -- Lab0, for example -- and that'll set you up with a new file ready to go.
+
+## Overview
+
+While field goal kickers are not the *most* exciting players in the game, their analysis provides an insight into our topic on expected points and decision-making.
+
+First, there's no known R-package with perfect NFL data, so we'll have to use one on the internet. I uploaded a .csv file with lots of kicker data. You can view that data by clicking [here](https://raw.githubusercontent.com/statsbylopez/StatsSports/master/Kickers.csv). 
+
+In R, there are a few ways to get data from the Internet. I use the `RCurl` package. Per usual, start by installing the package. You only have to do this once.
+
+Next, we'll load this as the `url` using the `getURL` command, and load it into R. 
+
+```{r, eval = FALSE}
+library(RCurl)
+url <- getURL("https://raw.githubusercontent.com/statsbylopez/StatsSports/master/Kickers.csv")
+nfl.kick <- read.csv(text = url)
+head(nfl.kick)
+```
+
+## On your own
+
+Working in pairs, create your own study of NFL kickers! Consider any of the variables in the data set. Feel free to consult the NBA data set to guide you (how we aggregated shot success rates)
