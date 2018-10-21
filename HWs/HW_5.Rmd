@@ -1,0 +1,81 @@
+---
+title: "Homework or lab title here"
+author: "Your name here"
+date: "Date here"
+output:
+  html_document
+---
+
+```{r global_options, include=FALSE, message=FALSE, warning = FALSE}
+knitr::opts_chunk$set(eval = FALSE, message = FALSE, warning = FALSE)
+library(tidyverse)
+```
+
+
+# Important note 1
+
+Open RStudio by going to [http://r.skidmore.edu/](http://r.skidmore.edu/). 
+ 
+
+# Important note 2
+
+Open a new R Markdown file (File / New File / R Markdown...).  You can create a basic name -- Lab0, for example -- and that'll set you up with a new file ready to go.
+
+# Important note 3
+
+Click on the link below:
+
+[https://raw.githubusercontent.com/statsbylopez/FYE_18/master/HWs/HW_lab_base.Rmd](https://raw.githubusercontent.com/statsbylopez/FYE_18/master/HWs/HW_lab_base.Rmd)
+
+Copy and paste the text at the link above into your Markdown document. As in our lab, you'll use this file to write your code. In general, follow the steps below: 
+
+- Copy, paste, and possibly edit code into a code chunk for each question
+- Run the code and make sure it works
+- Write up a solution to the question below
+- `Knit` the file to make sure that it appropriately renders an HTML
+- When all questions are done, you can print the HTML as your final product. 
+
+## Readings
+
+[Kickers are forever](https://fivethirtyeight.com/features/kickers-are-forever/)
+[Kicker haters](https://fivethirtyeight.com/features/the-haters-are-losing-the-war-on-nfl-kickers/) 
+[https://statsbylopez.com/2016/01/08/it-sucks-to-kick-in-the-cold/](https://statsbylopez.com/2016/01/08/it-sucks-to-kick-in-the-cold/)
+
+## Questions
+
+
+For this homework, we will be using data provided in the `nfl.kick` data set, as was done during class. 
+
+We are going to look at the success rates of NFL kickers. 
+
+```{r, eval = FALSE}
+library(RCurl)
+library(tidyverse)
+url <- getURL("https://raw.githubusercontent.com/statsbylopez/StatsSports/master/Kickers.csv")
+nfl.kick <- read.csv(text = url)
+head(nfl.kick)
+```
+
+
+1. Find the **kicker** with the best percentage of successful field goals. Why might one argue that this specific kicker may not be the most accurate, even though he has the highest percentage?
+
+
+2. Use R to find the **team** with the best percentage of successful field goals. Why might one argue that this team may not have had the best kickers even though they've posted the highest overall percentage?
+
+3. Identify the teams that have kicked the highest percentage of their field goals on grass (recall: the `Grass` variable is a TRUE/FALSE indicator for whether or not each kick was kicked on a grass surface.).
+
+4. A coach is interested if game minute is related to field goal success rate. First, make a chart with the success rate by each game minute. The x-axis should be game minute, and the y-axis should be the success rate of each kick.
+
+5. Same as in No. 4, except a different line for grass and a difference line for non-grass kicks. 
+
+6. A coach is curious if perhaps kick distances are different at various game minutes. Are they? Make a chart of the average kick distance at each game minute. 
+
+7. Make a boxplot to compare the kick distances of Adam Vinatieri (`Vinatieri`) and Justin Tucker (`Tucker`). Which one has generally attemted more difficult kicks? 
+
+8. Using only kickers who have attempted at least 20 field goals, identify the average distance for each kicker. Then, identify the kicker with the lowest average distance and the highest average distance among this group of kickers.
+
+9. A 50-yard kick has a 65-percent chance of going in. Kicker A hits this field goal while Kicker B misses it. How many expected points has Kicker A added to his team given this single kick? How about Kicker B?
+
+10. Given your readings, are there any other variables that you would want to account for when measuring field goal success that aren't in the current data set? 
+
+11. Knit your homework, and edit to make sure it comes out cleanly and professionally. You are graded on each assignment in terms of spelling, grammar, and presentation. Take time to review your document and edit accordingly. 
