@@ -48,7 +48,7 @@ For this homework, we will be using data provided in the `nfl.kick` data set, as
 
 We are going to look at the success rates of NFL kickers. 
 
-```{r, eval = FALSE}
+```{r}
 library(RCurl)
 library(tidyverse)
 url <- getURL("https://raw.githubusercontent.com/statsbylopez/StatsSports/master/Kickers.csv")
