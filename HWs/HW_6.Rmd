@@ -1,0 +1,66 @@
+---
+title: "Homework or lab title here"
+author: "Your name here"
+date: "Date here"
+output:
+  html_document
+---
+
+```{r global_options, include=FALSE, message=FALSE, warning = FALSE}
+knitr::opts_chunk$set(eval = FALSE, message = FALSE, warning = FALSE)
+library(tidyverse)
+```
+
+
+
+## Readings
+
+- Expected points part 1 [link](http://thespread.us/expected-points.html)
+- Expected points part 2 [link](http://thespread.us/expected-points-2.html)
+
+1. Look at the chart titlled "Expected points, first down, all plays included". Approximate the variability in expected points. Roughly how much (in terms of expected points) uncertainty is there? Does the uncertainty vary by yard line?
+
+2. What is the point of using "trimmed data" in football? Can you identify another sport in which using trimmed data could be relevant? Why?
+
+3. Has expected points risen over time? Does the author find the change meaningful? 
+
+## Questions
+
+We return to the `nflscrapR` data set, which has play-by-play from the NFL season. 
+
+
+```{r, eval = FALSE}
+library(RCurl)
+library(tidyverse)
+url.18 <- getURL("https://raw.githubusercontent.com/ryurko/nflscrapR-data/master/play_by_play_data/regular_season/reg_pbp_2018.csv")
+pbp <- read.csv(text = url.18)
+head(pbp)
+rushes <- pbp %>% filter(play_type == "run")
+rushes <- rushes %>% 
+  select(game_id, home_team, away_team, posteam, yardline_100, game_seconds_remaining, 
+         qtr, down, ydstogo, yards_gained, shotgun, no_huddle, run_gap, 
+         run_location, epa, wpa, rusher_player_name) %>% na.omit()
+```
+
+
+4. Make a histogram of both EPA and WPA on run plays. Identify the shape, center, and spread of each. How do they compare? 
+
+5. Make side by side boxplots of EPA for each rush team (`posteam`). Which team has the highest median EPA?
+
+6. Now, use the summarize command to double check your answer in No. 2. 
+
+7. Make a density plot to compare the distribution of EPA by each run gap (`run_gap`). You should have a separate curve for each run location. Note that there are three types of run gaps -- `guard`, `tackle`, and `end`. 
+
+8. Summarize what you see in the density curves of above. As examples, consider which run gap has the highest frequency of good plays (positive EPA), bad plays (negative EPA), and plays clustered around 0. 
+
+9. Facet the chart above by whether or not the play was in shotgun (this means the quarterback is lined up a few yards behind the center). You should end up with 2 graphs, each showing 3 curves.  Are there any differences between the two curves?
+
+## On-your-own
+
+10. Using this plot, make one scatter plot of `game_seconds_remaining` and EPA. Make another of `game_seconds_remaining` and WPA. How are EPA and WPA linked to the amount of time left in the game? Note: think carefully about what it means to have a small number of seconds remaining in a game. 
+
+11. Using all rushers with at least 30 attempts, identify the ones with the five highest average EPA. Note: each row in this data set reflects a rush attempt. 
+
+12. Using all rushers with at least 30 attempts, identify the five players who ran to the end (`run_gap == "end"`) the greatest percentage of the time. 
+
+13. In 1-2 sentences, tell a coach what you have learned about Cam Newton. 
