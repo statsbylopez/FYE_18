@@ -1,0 +1,50 @@
+---
+title: "Homework or lab title here"
+author: "Your name here"
+date: "Date here"
+output:
+  html_document
+---
+
+```{r global_options, include=FALSE, message=FALSE, warning = FALSE}
+knitr::opts_chunk$set(eval = FALSE, message = FALSE, warning = FALSE)
+library(tidyverse)
+```
+
+
+
+## Questions
+
+This lab will be mostly review, but done on a hockey data set. Please see our previous labs and homeworks for reminders of how to answer the following questions. The answers are more open ended -- be concise in your answers, but feel free to try different plots or summary statistics to justify your answer. 
+
+```{r}
+library(RCurl)
+library(tidyverse)
+url <- getURL("https://raw.githubusercontent.com/statsbylopez/StatsSports/master/NHL.csv")
+nhl.data <- read_csv(url)
+nhl.data <- nhl.data %>% filter(TOI > 500)
+nhl.data <- na.omit(nhl.data)
+nhl.data$ShP <- nhl.data$Goals/nhl.data$Shots
+```
+
+
+## Question 1
+
+A player is curious if salaries have changed over time. What will you tell the player? Use a combination of graphs (think about which chart(s) are most appropriate) and summary statistics (mean, median, etc) to identify how salaries have changed. 
+
+## Question 2
+
+Refer to homework 2 (as well as the corresponding code in our notes). Make a correlation matrix featuring the variables `Goals_Sixty`, `Assists_Sixty`, `CF_Percent`, `PDO`, `Shots`, `TOI`, and `SHP`. Which variables are most closely related to one another? 
+
+## Question 3
+
+Identify the 4 player-seasons with the highest PDO. Next, filtering each of those players' one at a time, identify their PDO in the season following their season with a high PDO. 
+
+## Question 4
+
+Using players who have played at least 5 seasons (recall: each row is a season), identify the five players with the highest average `CF_Percent`. The top player should be Pavel.Datsyuk: interpret his average `CF_Percent`. 
+
+## Question 5
+
+Please submit a project proposal, per guidelines discussed in class. The proposal should be typed using RMarkdown and printed as a separate file from this homework. One proposal should be submitted per group.
+
