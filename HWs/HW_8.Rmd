@@ -1,0 +1,85 @@
+---
+title: "HW 8: Soccer data and professional looking plots"
+output:
+  pdf_document: default
+  html_document:
+    css: ../lab.css
+    highlight: pygments
+    theme: cerulean
+author: Michael Lopez, Skidmore College
+---
+
+
+```{r setup, include=FALSE, include = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(eval = FALSE, warning = FALSE, echo = TRUE)
+```
+
+# Important note 1
+
+First, we'll open RStudio by going to [http://r.skidmore.edu/](http://r.skidmore.edu/). 
+
+# Important note 2
+
+Open a new R Markdown file (File / New File / R Markdown...).  You can create a basic name -- Lab0, for example -- and that'll set you up with a new file ready to go.
+
+## Overview
+
+
+## Today's goals
+
+In this homework, we will build off of Lab 9, using NWSL and advanced visualization tools in `ggplot`. 
+
+## Data from the NWSL
+
+First, we read in the data
+
+```{r, warning = FALSE, message = FALSE}
+library(tidyverse)
+url.temp <- "https://raw.githubusercontent.com/statsbylopez/FYE_18/master/nwsl_shots.csv"
+soccer.data <- read_csv(url.temp)
+soccer.data <- soccer.data %>% mutate(is.goal = shots.outcome.name == "Goal")
+head(soccer.data)
+dim(soccer.data)
+```
+
+1. Identify the player with the most shots taken in this data set.
+
+2. Identify the five players witht he most goals in this data set.
+
+3. Identify the team with the largest number of `Head` shots (`shots.body.part`). 
+
+4. Among players with at least 10 shots, identify which two have the highest shooting percentages. 
+
+5. Arsenal and Chelsea have the most shots -- how do their shot rates compare? 
+
+6. Take the following sad plot and make it better. 
+
+
+```{r}
+player.sum <- soccer.data %>% 
+  filter(shots.type.name == "Open Play") %>% 
+  group_by(shots.player) %>% 
+  summarise(n.shots = n(), shot.rate = mean(is.goal)) %>% 
+  filter(n.shots >= 20)
+
+ggplot(player.sum, aes(shots.player, shot.rate)) + 
+  geom_col()
+```
+
+Please do the following: 
+
+- Plot title and subtitle, at least one of which identifies the shot type
+- x and y axis labels
+- Rotated x-axis
+- y-axis labels changed to percents
+- Order the graph from lowest to greatest shot rate, 
+- Change the limit to go from 0 to 100% (or 0 to 1)
+- Add a label that identifies Georgia Stanway, who scored a ridiculous goal shown [here](https://www.youtube.com/watch?v=OrMxRw0w1eg)
+
+7. (Bonus only) Add text above each players' bar that identifies the exact percentage for each player. Note: Use `geom_text()` and the `round()` function to help you out. You may also want to search how to do this online.
+
+8. (Bonus only) Color the bar chart so that everyone's bar is in grey, except for Stanway's bar, which is in red. You may want to search how to do this online. 
+
+9. Using **only** open play shots, identify the goal rate based on body part. 
+
+10. Using **only** open play shots, identify the goal rate based on technique. You should find that overhead kicks have the highest goal rates. Should soccer players attempt more overhead kicks? Answer Yes or no, and justify your response. 
